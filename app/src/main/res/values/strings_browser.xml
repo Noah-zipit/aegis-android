@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home / main -->
+    <string name="app_wordmark">Aegis</string>
+    <string name="home_subtitle">Private browsing · On-device AI</string>
+    <string name="address_hint">Search or enter address</string>
+    <string name="aegis_ai">Aegis AI</string>
+
+    <!-- Content descriptions (accessibility, never visible) -->
+    <string name="desc_back">Back</string>
+    <string name="desc_forward">Forward</string>
+    <string name="desc_reload">Reload</string>
+    <string name="desc_tabs">Tabs</string>
+    <string name="desc_menu">Menu</string>
+    <string name="desc_close_tab">Close tab</string>
+    <string name="desc_delete_bookmark">Delete bookmark</string>
+
+    <!-- Tabs -->
+    <string name="new_tab">New tab</string>
+    <string name="home">Home</string>
+    <string name="tabs_title">Tabs</string>
+
+    <!-- Quick links -->
+    <string name="quick_google">Google</string>
+    <string name="quick_duckduckgo">DuckDuckGo</string>
+    <string name="quick_youtube">YouTube</string>
+    <string name="quick_wikipedia">Wikipedia</string>
+
+    <!-- Overflow menu -->
+    <string name="menu_new_tab">New tab</string>
+    <string name="menu_ai_chat">Aegis AI</string>
+    <string name="menu_add_bookmark">Add bookmark</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_history">History</string>
+    <string name="menu_downloads">Downloads</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about">About</string>
+    <string name="menu_clear_data">Clear browsing data</string>
+
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="clear_all">Clear all</string>
+    <string name="empty_history">No history yet</string>
+    <string name="clear_history_confirm">Clear all browsing history?</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="data_cleared">Browsing data cleared</string>
+
+    <!-- Bookmarks -->
+    <string name="bookmarks_title">Bookmarks</string>
+    <string name="add_folder">Add folder</string>
+    <string name="folder_name_hint">Folder name</string>
+    <string name="create">Create</string>
+    <string name="folder_exists">A folder with that name already exists</string>
+    <string name="empty_bookmarks">No bookmarks in this folder yet</string>
+    <string name="bookmark_saved">Bookmark saved</string>
+    <string name="bookmark_deleted">Bookmark deleted</string>
+    <string name="nothing_to_bookmark">Nothing to bookmark yet</string>
+
+    <!-- Downloads -->
+    <string name="downloads_title">Downloads</string>
+    <string name="empty_downloads">No downloads yet</string>
+    <string name="download_started">Downloading %1$s</string>
+    <string name="downloading">Downloading</string>
+    <string name="download_failed">Download failed</string>
+    <string name="open_file">Open file</string>
+    <string name="cannot_open_file">Can\'t open this file</string>
+    <string name="download_incomplete">Download isn\'t complete yet</string>
+    <string name="dl_pending">Pending</string>
+    <string name="dl_running">Downloading</string>
+    <string name="dl_paused">Paused</string>
+    <string name="dl_complete">Complete</string>
+    <string name="dl_failed">Failed</string>
+    <string name="dl_unknown">Unknown</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_search_engine">Search engine</string>
+    <string name="settings_homepage">Homepage</string>
+    <string name="homepage_hint">https://… (empty = Aegis home)</string>
+    <string name="save">Save</string>
+    <string name="homepage_saved">Homepage saved</string>
+    <string name="engine_saved">Search engine updated</string>
+    <string name="version_format">Version %1$s</string>
+    <string name="clear_data_title">Clear browsing data?</string>
+    <string name="clear_data_message">This clears your browsing history, cookies, cache and site data.</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_tagline">Aegis — a private browser with on-device AI</string>
+    <string name="about_body">Aegis is a fast, private Android browser. Your history and bookmarks live in simple files on this phone — no account, no cloud sync, no trackers phoning home. The shield is the promise: what you browse is yours.</string>
+    <string name="about_ai_heading">On-device AI</string>
+    <string name="about_ai_body">On-device. Your words never leave this phone.</string>
+
+    <!-- Link long-press -->
+    <string name="open_in_new_tab">Open in new tab</string>
+    <string name="copy_link">Copy link</string>
+    <string name="link_copied">Link copied</string>
+    <string name="choose_file">Choose file</string>
+    <string name="ai_unavailable">Aegis AI isn\'t available right now</string>
+</resources>

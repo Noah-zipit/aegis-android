@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aegis_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_search_engine"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/aegis_text" />
+
+        <RadioGroup
+            android:id="@+id/engine_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rb_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Google"
+                android:textColor="@color/aegis_text"
+                android:buttonTint="@color/aegis_accent" />
+
+            <RadioButton
+                android:id="@+id/rb_duckduckgo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DuckDuckGo"
+                android:textColor="@color/aegis_text"
+                android:buttonTint="@color/aegis_accent" />
+
+            <RadioButton
+                android:id="@+id/rb_brave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Brave"
+                android:textColor="@color/aegis_text"
+                android:buttonTint="@color/aegis_accent" />
+
+            <RadioButton
+                android:id="@+id/rb_bing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bing"
+                android:textColor="@color/aegis_text"
+                android:buttonTint="@color/aegis_accent" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/aegis_border" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_homepage"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/aegis_text" />
+
+        <EditText
+            android:id="@+id/homepage_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_address_bar"
+            android:hint="@string/homepage_hint"
+            android:textColor="@color/aegis_text"
+            android:textColorHint="@color/aegis_text_dim"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:inputType="textUri"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_save_homepage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/save" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/aegis_border" />
+
+        <Button
+            android:id="@+id/btn_clear_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_clear_data" />
+
+        <TextView
+            android:id="@+id/version_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="13sp"
+            android:textColor="@color/aegis_text_dim" />
+    </LinearLayout>
+</ScrollView>

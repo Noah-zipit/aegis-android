@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ai_title">Aegis AI</string>
+    <string name="ai_sub_default">On-device · SmolLM2 360M · CPU</string>
+    <string name="ai_privacy">On-device. Your words never leave this phone.</string>
+    <string name="ai_cpu_note">Running on your phone\'s CPU — slower than GPU, but works on any phone, fully offline after download.</string>
+    <string name="ai_hint">Ask anything…</string>
+    <string name="ai_send">Send</string>
+    <string name="ai_stop">Stop</string>
+    <string name="ai_download">Download</string>
+    <string name="ai_downloading">Downloading…</string>
+    <string name="ai_cancel">Cancel</string>
+    <string name="ai_retry">Retry</string>
+    <string name="ai_clear">Clear chat</string>
+    <string name="ai_loading_model">Loading model…</string>
+    <string name="ai_model_ready">Ready — fully offline</string>
+    <string name="ai_download_failed">Download failed. Check your connection and try again.</string>
+    <string name="ai_load_failed">Couldn\'t load the model file. Try downloading it again.</string>
+    <string name="ai_packs_intro">Pick a model pack. It downloads once, then works fully offline.</string>
+    <string name="ai_empty_chat">No messages yet. Ask anything — it never leaves your phone.</string>
+    <string name="ai_open">Open</string>
+    <string name="ai_coming_soon">Soon</string>
+</resources>

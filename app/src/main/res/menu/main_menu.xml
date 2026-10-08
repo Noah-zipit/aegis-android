@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_new_tab"
+        android:title="@string/menu_new_tab" />
+    <item
+        android:id="@+id/action_ai_chat"
+        android:title="@string/menu_ai_chat" />
+    <item
+        android:id="@+id/action_add_bookmark"
+        android:title="@string/menu_add_bookmark" />
+    <item
+        android:id="@+id/action_bookmarks"
+        android:title="@string/menu_bookmarks" />
+    <item
+        android:id="@+id/action_history"
+        android:title="@string/menu_history" />
+    <item
+        android:id="@+id/action_downloads"
+        android:title="@string/menu_downloads" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/menu_settings" />
+    <item
+        android:id="@+id/action_about"
+        android:title="@string/menu_about" />
+    <item
+        android:id="@+id/action_clear_data"
+        android:title="@string/menu_clear_data" />
+</menu>
