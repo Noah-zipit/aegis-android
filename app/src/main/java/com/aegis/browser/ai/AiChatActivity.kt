@@ -293,14 +293,26 @@ class AiChatActivity : AppCompatActivity() {
         val sb = StringBuilder()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val callback = LlamaBridge.TokenCallback { token ->
-                sb.append(token)
-                runOnUiThread {
-                    if (assistantIdx < messages.size) {
-                        messages[assistantIdx] =
-                            messages[assistantIdx].copy(content = sb.toString())
-                        adapter.notifyItemChanged(assistantIdx)
-                        scrollToEnd()
+            val callback = object : LlamaBridge.GenerateCallback {
+                override fun onToken(token: String) {
+                    sb.append(token)
+                    runOnUiThread {
+                        if (assistantIdx < messages.size) {
+                            messages[assistantIdx] =
+                                messages[assistantIdx].copy(content = sb.toString())
+                            adapter.notifyItemChanged(assistantIdx)
+                            scrollToEnd()
+                        }
+                    }
+                }
+
+                override fun onStatus(stage: String) {
+                    runOnUiThread {
+                        tvModelStatus.text = when (stage) {
+                            "prefill" -> getString(R.string.ai_status_thinking)
+                            "generating" -> getString(R.string.ai_status_writing)
+                            else -> stage
+                        }
                     }
                 }
             }
@@ -312,6 +324,7 @@ class AiChatActivity : AppCompatActivity() {
                 generating = false
                 btnSend.text = getString(R.string.ai_send)
                 etInput.isEnabled = true
+                tvModelStatus.text = getString(R.string.ai_model_ready)
                 val finalText = sb.toString().trim()
                 if (result < 0 && finalText.isEmpty() && assistantIdx < messages.size) {
                     messages.removeAt(assistantIdx)

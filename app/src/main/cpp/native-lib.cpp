@@ -8,8 +8,8 @@
 //   - llama_batch_get_one / llama_decode / llama_memory_clear(llama_get_memory(ctx), true)
 //   - sampler chain: temp -> top_k -> top_p -> dist
 //
-// Streaming: nativeGenerateStream calls TokenCallback.onToken(token) from the
-// calling thread once per emitted token.
+// Streaming: nativeGenerateStream calls GenerateCallback.onToken(token) from the
+// calling thread once per emitted token, plus onStatus("prefill"/"generating").
 
 #include <jni.h>
 
@@ -128,6 +128,17 @@ Java_com_aegis_browser_ai_LlamaBridge_nativeGenerateStream(JNIEnv* env, jobject 
         env->DeleteGlobalRef(cbRef);
         return -1;
     }
+    // onStatus is optional (older Kotlin side may not have it); stages are
+    // best-effort diagnostics.
+    jmethodID onStatus = env->GetMethodID(cbClass, "onStatus", "(Ljava/lang/String;)V");
+    auto reportStatus = [&](const char* stage) {
+        if (!onStatus) return;
+        jstring js = env->NewStringUTF(stage);
+        if (js) {
+            env->CallVoidMethod(cbRef, onStatus, js);
+            env->DeleteLocalRef(js);
+        }
+    };
 
     // --- Build the prompt with the model's own chat template ---
     llama_chat_message msgs[2] = {
@@ -174,6 +185,7 @@ Java_com_aegis_browser_ai_LlamaBridge_nativeGenerateStream(JNIEnv* env, jobject 
 
     // --- Prefill (batched: one decode per n_batch chunk, not one per token) ---
     bool ok = true;
+    reportStatus("prefill");
     const int32_t n_batch = 512;
     for (int32_t i = 0; i < n_tok && ok; i += n_batch) {
         if (g_stop) {
@@ -194,6 +206,7 @@ Java_com_aegis_browser_ai_LlamaBridge_nativeGenerateStream(JNIEnv* env, jobject 
     const llama_token eos = llama_vocab_eos(g_vocab);
     int generated = 0;
     char piece[64];
+    reportStatus("generating");
 
     while (ok && generated < maxTokens && !g_stop) {
         llama_token id = llama_sampler_sample(smpl, g_ctx, -1);

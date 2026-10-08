@@ -14,6 +14,8 @@
     <string name="ai_clear">Clear chat</string>
     <string name="ai_loading_model">Loading model…</string>
     <string name="ai_model_ready">Ready — fully offline</string>
+    <string name="ai_status_thinking">Thinking…</string>
+    <string name="ai_status_writing">Writing…</string>
     <string name="ai_download_failed">Download failed. Check your connection and try again.</string>
     <string name="ai_load_failed">Couldn\'t load the model file. Try downloading it again.</string>
     <string name="ai_packs_intro">Pick a model pack. It downloads once, then works fully offline.</string>

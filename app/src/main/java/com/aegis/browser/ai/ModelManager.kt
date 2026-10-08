@@ -20,6 +20,14 @@ data class ModelPack(
  */
 object ModelManager {
 
+    val NANO = ModelPack(
+        id = "nano",
+        name = "Nano",
+        subtitle = "SmolLM2 135M · Q4_0 · ~87 MB",
+        url = "https://huggingface.co/QuantFactory/SmolLM2-135M-Instruct-GGUF/resolve/main/SmolLM2-135M-Instruct.Q4_0.gguf",
+        sizeBytes = 91726912L
+    )
+
     val LITE = ModelPack(
         id = "lite",
         name = "Lite",
@@ -36,10 +44,10 @@ object ModelManager {
         sizeBytes = 990728896L
     )
 
-    val PACKS: List<ModelPack> = listOf(LITE, STANDARD)
+    val PACKS: List<ModelPack> = listOf(NANO, LITE, STANDARD)
 
-    /** Currently selected pack. Lite is the default; Standard swaps in once downloaded. */
-    var activePack: ModelPack = LITE
+    /** Currently selected pack. Nano (smallest) is the default. */
+    var activePack: ModelPack = NANO
 
     private val cancelled = AtomicBoolean(false)
 
