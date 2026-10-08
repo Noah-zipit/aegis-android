@@ -172,19 +172,22 @@ Java_com_aegis_browser_ai_LlamaBridge_nativeGenerateStream(JNIEnv* env, jobject 
     llama_sampler_chain_add(smpl, llama_sampler_init_top_p(0.9f, 1));
     llama_sampler_chain_add(smpl, llama_sampler_init_dist((uint32_t)time(nullptr)));
 
-    // --- Prefill ---
+    // --- Prefill (batched: one decode per n_batch chunk, not one per token) ---
     bool ok = true;
-    for (llama_token t : tokens) {
+    const int32_t n_batch = 512;
+    for (int32_t i = 0; i < n_tok && ok; i += n_batch) {
         if (g_stop) {
             ok = false;
             break;
         }
-        llama_batch batch = llama_batch_get_one(&t, 1);
+        const int32_t n = n_tok - i < n_batch ? n_tok - i : n_batch;
+        llama_batch batch = llama_batch_get_one(tokens.data() + i, n);
         if (llama_decode(g_ctx, batch) != 0) {
+            LOGE("nativeGenerateStream: prefill decode failed at offset %d", i);
             ok = false;
             break;
         }
-        llama_sampler_accept(smpl, t);
+        for (int32_t j = 0; j < n; j++) llama_sampler_accept(smpl, tokens[(size_t)i + j]);
     }
 
     // --- Generate loop: sample -> callback -> decode ---
