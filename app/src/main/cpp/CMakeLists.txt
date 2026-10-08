@@ -22,7 +22,7 @@ FetchContent_MakeAvailable(llama)
 # ---- our JNI bridge ----
 add_library(aegis-llama SHARED native-lib.cpp)
 
-target_link_libraries(aegis-llama PRIVATE llama common)
+target_link_libraries(aegis-llama PRIVATE llama)
 
 find_library(log-lib log)
 target_link_libraries(aegis-llama PRIVATE ${log-lib})
