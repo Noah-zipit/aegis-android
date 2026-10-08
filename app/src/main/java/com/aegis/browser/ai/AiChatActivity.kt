@@ -1,6 +1,7 @@
 package com.aegis.browser.ai
 
 import android.os.Bundle
+import com.aegis.browser.R
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.Menu
