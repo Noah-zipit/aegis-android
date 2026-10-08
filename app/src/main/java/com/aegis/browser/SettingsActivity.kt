@@ -14,7 +14,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import com.aegis.browser.crash.CrashReporter
 import com.aegis.browser.data.HistoryStore
+import com.aegis.browser.jev.JevClient
+import java.io.File
 
 /**
  * Search engine selector, homepage URL, clear browsing data, version info.
@@ -59,6 +63,42 @@ class SettingsActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.homepage_saved, Toast.LENGTH_SHORT).show()
         }
 
+        // --- homepage wallpaper toggle ---
+        val swWallpaper = findViewById<SwitchCompat>(R.id.switch_wallpaper)
+        swWallpaper.isChecked = prefs.getBoolean(MainActivity.KEY_WALLPAPER, true)
+        swWallpaper.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean(MainActivity.KEY_WALLPAPER, checked).apply()
+        }
+
+        // --- Jev BYOK ---
+        val jevKey = findViewById<EditText>(R.id.jev_key)
+        val jevEndpoint = findViewById<EditText>(R.id.jev_endpoint)
+        val jevModel = findViewById<EditText>(R.id.jev_model)
+        jevKey.setText(prefs.getString(MainActivity.KEY_JEV_KEY, ""))
+        jevEndpoint.setText(
+            prefs.getString(MainActivity.KEY_JEV_ENDPOINT, JevClient.DEFAULT_ENDPOINT)
+        )
+        jevModel.setText(prefs.getString(MainActivity.KEY_JEV_MODEL, JevClient.DEFAULT_MODEL))
+        findViewById<Button>(R.id.btn_save_jev).setOnClickListener {
+            prefs.edit()
+                .putString(MainActivity.KEY_JEV_KEY, jevKey.text.toString().trim())
+                .putString(
+                    MainActivity.KEY_JEV_ENDPOINT,
+                    jevEndpoint.text.toString().trim().ifEmpty { JevClient.DEFAULT_ENDPOINT }
+                )
+                .putString(
+                    MainActivity.KEY_JEV_MODEL,
+                    jevModel.text.toString().trim().ifEmpty { JevClient.DEFAULT_MODEL }
+                )
+                .apply()
+            Toast.makeText(this, R.string.jev_saved, Toast.LENGTH_SHORT).show()
+        }
+
+        // --- crash reports ---
+        findViewById<Button>(R.id.btn_crash_reports).setOnClickListener {
+            showCrashReports()
+        }
+
         // --- clear browsing data ---
         findViewById<Button>(R.id.btn_clear_data).setOnClickListener {
             AlertDialog.Builder(this)
@@ -72,6 +112,25 @@ class SettingsActivity : AppCompatActivity() {
         // --- version ---
         findViewById<TextView>(R.id.version_info).text =
             getString(R.string.version_format, appVersion())
+    }
+
+    private fun showCrashReports() {
+        val reports = CrashReporter.pendingReports(this)
+        if (reports.isEmpty()) {
+            Toast.makeText(this, R.string.crash_reports_none, Toast.LENGTH_SHORT).show()
+            return
+        }
+        AlertDialog.Builder(this)
+            .setTitle(R.string.settings_crash)
+            .setItems(reports.map { it.name }.toTypedArray()) { _, which ->
+                showCrashReport(reports[which])
+            }
+            .setNegativeButton(R.string.crash_dismiss, null)
+            .show()
+    }
+
+    private fun showCrashReport(file: File) {
+        CrashReporter.showReportDialog(this, file)
     }
 
     private fun clearBrowsingData() {

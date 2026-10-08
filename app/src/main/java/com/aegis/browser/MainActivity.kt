@@ -24,12 +24,14 @@ import android.webkit.URLUtil
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
@@ -40,11 +42,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aegis.browser.crash.CrashReporter
 import com.aegis.browser.data.BookmarkStore
 import com.aegis.browser.data.HistoryStore
+import com.aegis.browser.jev.JevClient
+import com.aegis.browser.shield.Shield
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -64,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         const val PREFS = "aegis_prefs"
         const val KEY_ENGINE = "search_engine"
         const val KEY_HOMEPAGE = "homepage"
+        const val KEY_WALLPAPER = "wallpaper"
+        const val KEY_JEV_KEY = "jev_key"
+        const val KEY_JEV_ENDPOINT = "jev_endpoint"
+        const val KEY_JEV_MODEL = "jev_model"
     }
 
     private data class Tab(val webView: WebView, var title: String = "", var url: String = "")
@@ -77,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var webContainer: FrameLayout
     private lateinit var homeView: ScrollView
+    private lateinit var homeWallpaper: ImageView
     private lateinit var homeClock: TextView
     private lateinit var homeDate: TextView
     private lateinit var bottomToolbar: View
@@ -130,6 +145,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        CrashReporter.init(this)
+        Shield.init(this)
         setContentView(R.layout.activity_main)
 
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
@@ -141,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progress_bar)
         webContainer = findViewById(R.id.web_container)
         homeView = findViewById(R.id.home_view)
+        homeWallpaper = findViewById(R.id.home_wallpaper)
         homeClock = findViewById(R.id.home_clock)
         homeDate = findViewById(R.id.home_date)
         bottomToolbar = findViewById(R.id.bottom_toolbar)
@@ -193,17 +211,21 @@ class MainActivity : AppCompatActivity() {
         })
 
         if (tabs.isEmpty()) newTab()
+        showPendingCrash()
     }
 
     override fun onResume() {
         super.onResume()
         activeWebView()?.onResume()
+        homeWallpaper.visibility =
+            if (prefs.getBoolean(KEY_WALLPAPER, true)) View.VISIBLE else View.GONE
         clockHandler.post(clockRunnable)
     }
 
     override fun onPause() {
         activeWebView()?.onPause()
         clockHandler.removeCallbacks(clockRunnable)
+        Shield.persist(this)
         super.onPause()
     }
 
@@ -399,6 +421,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         wv.webViewClient = object : WebViewClient() {
+            override fun shouldInterceptRequest(
+                view: WebView?,
+                request: WebResourceRequest?
+            ): WebResourceResponse? {
+                // Aegis Shield: block ad/tracker subresources. Main frames never blocked.
+                return Shield.intercept(
+                    request?.url?.toString(),
+                    request?.isForMainFrame == true
+                )
+            }
+
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
                 request: WebResourceRequest?
@@ -589,6 +622,14 @@ class MainActivity : AppCompatActivity() {
                     openAiChat()
                     true
                 }
+                R.id.action_page_verdict -> {
+                    pageVerdict()
+                    true
+                }
+                R.id.action_privacy -> {
+                    startActivity(Intent(this, PrivacyActivity::class.java))
+                    true
+                }
                 R.id.action_add_bookmark -> {
                     addBookmarkCurrent()
                     true
@@ -629,6 +670,109 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, R.string.ai_unavailable, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // ---------------------------------------------------------- Jev page verdict
+
+    private fun pageVerdict() {
+        val url = activeTab()?.url.orEmpty()
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            Toast.makeText(this, R.string.verdict_no_page, Toast.LENGTH_SHORT).show()
+            return
+        }
+        val key = prefs.getString(KEY_JEV_KEY, "").orEmpty()
+        if (key.isBlank()) {
+            Toast.makeText(this, R.string.jev_key_needed, Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, SettingsActivity::class.java))
+            return
+        }
+        val endpoint = prefs.getString(KEY_JEV_ENDPOINT, JevClient.DEFAULT_ENDPOINT).orEmpty()
+            .ifBlank { JevClient.DEFAULT_ENDPOINT }
+        val model = prefs.getString(KEY_JEV_MODEL, JevClient.DEFAULT_MODEL).orEmpty()
+            .ifBlank { JevClient.DEFAULT_MODEL }
+
+        val progress = AlertDialog.Builder(this)
+            .setTitle(R.string.verdict_title)
+            .setMessage(R.string.verdict_checking)
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+
+        val wv = activeWebView()
+        if (wv == null) {
+            progress.dismiss()
+            return
+        }
+        wv.evaluateJavascript(
+            "(function(){var t=document.body?document.body.innerText:'';" +
+                "return JSON.stringify({title:document.title||''," +
+                "text:(t||'').slice(0,4000)});})()"
+        ) { json ->
+            val (title, text) = try {
+                val o = JSONObject(json)
+                o.optString("title") to o.optString("text")
+            } catch (_: Exception) {
+                "" to ""
+            }
+            lifecycleScope.launch(Dispatchers.IO) {
+                val verdict = JevClient.evaluate(endpoint, key, model, url, title, text)
+                withContext(Dispatchers.Main) {
+                    if (!isFinishing) {
+                        progress.dismiss()
+                        showVerdict(url, verdict)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showVerdict(url: String, v: JevClient.Verdict) {
+        if (v.error != null) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.verdict_title)
+                .setMessage(v.error)
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
+            return
+        }
+        val trustLabel = when {
+            v.trust == null -> getString(R.string.verdict_uncertain)
+            v.trust >= 0.7 -> getString(R.string.verdict_trustworthy)
+            v.trust <= 0.35 -> getString(R.string.verdict_suspicious)
+            else -> getString(R.string.verdict_uncertain)
+        }
+        val trustPct = v.trust?.let { "${(it * 100).toInt()}%" } ?: "—"
+        val kindName = v.pageKind
+            ?.replace('_', ' ')
+            ?.replaceFirstChar { c -> c.uppercaseChar() } ?: "—"
+        val kindConf = v.kindConfidence?.let { " (${(it * 100).toInt()}%)" } ?: ""
+        val quality = v.quality?.let { String.format("%.1f", it) } ?: "—"
+        val msg = "$trustLabel · $trustPct\n\n" +
+            "${getString(R.string.verdict_kind_label)}: $kindName$kindConf\n" +
+            "${getString(R.string.verdict_quality_label)}: $quality\n\n$url"
+        AlertDialog.Builder(this)
+            .setTitle(R.string.verdict_title)
+            .setMessage(msg)
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    // ---------------------------------------------------------- crash reports
+
+    private fun showPendingCrash() {
+        val reports = CrashReporter.pendingReports(this)
+        if (reports.isEmpty()) return
+        val file = reports.first()
+        AlertDialog.Builder(this)
+            .setTitle(R.string.crash_title)
+            .setMessage(R.string.crash_message)
+            .setPositiveButton(R.string.crash_view) { _, _ ->
+                CrashReporter.showReportDialog(this, file)
+            }
+            .setNeutralButton(R.string.crash_share) { _, _ ->
+                CrashReporter.shareReport(this, CrashReporter.readReport(file))
+            }
+            .setNegativeButton(R.string.crash_dismiss, null)
+            .show()
     }
 
     private fun addBookmarkCurrent() {

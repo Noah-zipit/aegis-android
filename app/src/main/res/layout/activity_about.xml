@@ -10,30 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="28dp">
+        android:padding="24dp">
 
         <ImageView
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:src="@drawable/ic_shield"
-            android:tint="@color/aegis_accent" />
+            android:tint="@color/aegis_accent"
+            android:contentDescription="@string/app_wordmark" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/app_wordmark"
-            android:textSize="30sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/aegis_text" />
 
         <TextView
+            android:id="@+id/about_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:textColor="@color/aegis_text_dim" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="@string/about_tagline"
             android:textSize="15sp"
             android:textColor="@color/aegis_text_dim" />
@@ -41,8 +48,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/about_body"
+            android:layout_marginTop="20dp"
+            android:text="@string/about_body_full"
             android:textSize="15sp"
             android:lineSpacingExtra="4dp"
             android:textColor="@color/aegis_text" />
@@ -50,26 +57,230 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/about_ai_heading"
-            android:textSize="17sp"
-            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:text="@string/about_principles_intro"
+            android:textSize="15sp"
             android:textColor="@color/aegis_text" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/principle_small_lead"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/aegis_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/principle_small_body"
+                android:textSize="15sp"
+                android:textColor="@color/aegis_text_dim" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/principle_private_lead"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/aegis_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/principle_private_body"
+                android:textSize="15sp"
+                android:textColor="@color/aegis_text_dim" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/principle_thrifty_lead"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/aegis_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/principle_thrifty_body"
+                android:textSize="15sp"
+                android:textColor="@color/aegis_text_dim" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/principle_yours_lead"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/aegis_text" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/principle_yours_body"
+                android:textSize="15sp"
+                android:textColor="@color/aegis_text_dim" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_stat_size"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/aegis_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/about_stat_size_label"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:textColor="@color/aegis_text_dim" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_stat_zero"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/aegis_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/about_stat_zero_label"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:textColor="@color/aegis_text_dim" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_card"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_stat_ai"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/aegis_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/about_stat_ai_label"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:textColor="@color/aegis_text_dim" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp">
+
+            <Button
+                android:id="@+id/btn_github"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="@string/about_github"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_mit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_card"
+                android:text="@string/about_mit"
+                android:textColor="@color/aegis_text"
+                android:textAllCaps="false" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/about_ai_body"
-            android:textSize="15sp"
-            android:textColor="@color/aegis_accent" />
-
-        <TextView
-            android:id="@+id/about_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:textSize="13sp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:fontFamily="monospace"
+            android:text="@string/about_built_by"
+            android:textSize="12sp"
             android:textColor="@color/aegis_text_dim" />
     </LinearLayout>
 </ScrollView>

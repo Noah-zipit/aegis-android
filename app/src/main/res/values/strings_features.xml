@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Privacy Report -->
+    <string name="privacy_title">Privacy Report</string>
+    <string name="privacy_subtitle">Everything Aegis refused on your behalf. No account, no telemetry — these numbers never leave this device.</string>
+    <string name="stat_trackers">Trackers blocked</string>
+    <string name="stat_ads">Ads blocked</string>
+    <string name="stat_scanned">Requests scanned</string>
+    <string name="stat_domains">Domains blocked</string>
+    <string name="stat_all_time">all time</string>
+    <string name="protection_section">PROTECTION</string>
+    <string name="shield_block_ads">Block ads</string>
+    <string name="shield_block_ads_desc">Strips ad scripts and banners before they render.</string>
+    <string name="shield_block_trackers">Block trackers</string>
+    <string name="shield_block_trackers_desc">Stops fingerprinting, beacons, and cross-site cookies.</string>
+    <string name="top_domains_section">MOST BLOCKED DOMAINS</string>
+    <string name="top_domains_empty">Nothing blocked yet. Browse a little and come back.</string>
+    <string name="privacy_story_btn">Why Aegis exists — read the story</string>
+    <string name="menu_privacy">Privacy Report</string>
+
+    <!-- About -->
+    <string name="about_body_full">Aegis is a lightweight, privacy-first browser for Android — named for the shield of Zeus. It exists because the modern mobile browser got it backwards: a quarter-gigabyte install, a process per tab, prefetching pages you never asked for, and an ad business riding shotgun.</string>
+    <string name="about_principles_intro">Aegis refuses all of that. The design principles:</string>
+    <string name="principle_small_lead">Small.</string>
+    <string name="principle_small_body">A ~15MB install. The engine is the system WebView — already on your phone, already updated.</string>
+    <string name="principle_private_lead">Private.</string>
+    <string name="principle_private_body">Tracker and ad blocking built in, not bolted on. Zero telemetry, zero account.</string>
+    <string name="principle_thrifty_lead">Thrifty.</string>
+    <string name="principle_thrifty_body">No page prefetching, frozen background tabs. Your battery is not a resource to mine.</string>
+    <string name="principle_yours_lead">Yours.</string>
+    <string name="principle_yours_body">On-device AI that reads the page you\'re on — in airplane mode. Nothing leaves the phone.</string>
+    <string name="about_stat_size">~15 MB</string>
+    <string name="about_stat_size_label">install size</string>
+    <string name="about_stat_zero">0</string>
+    <string name="about_stat_zero_label">trackers phoned home</string>
+    <string name="about_stat_ai">100%</string>
+    <string name="about_stat_ai_label">on-device AI</string>
+    <string name="about_github">GitHub repository</string>
+    <string name="about_mit">MIT License</string>
+    <string name="about_mit_toast">Aegis is MIT licensed — fork it, improve it</string>
+    <string name="about_built_by">Built by Ashar Qaisar · Gujranwala, Pakistan</string>
+
+    <!-- Wallpaper -->
+    <string name="wallpaper_desc">Aegis homepage wallpaper</string>
+    <string name="settings_wallpaper">Homepage wallpaper</string>
+    <string name="settings_wallpaper_desc">Show the ember wallpaper behind the home screen.</string>
+
+    <!-- Jev BYOK -->
+    <string name="settings_jev_title">Jev — page verdicts (BYOK)</string>
+    <string name="settings_jev_desc">Bring your own Jev API key. Aegis asks Jev to judge the current page: trustworthy or not, and what kind of page it is. Your key stays on this phone.</string>
+    <string name="jev_key_hint">Jev API key</string>
+    <string name="jev_endpoint_hint">Endpoint</string>
+    <string name="jev_model_hint">Model</string>
+    <string name="jev_save">Save Jev settings</string>
+    <string name="jev_saved">Jev settings saved</string>
+    <string name="jev_key_needed">Add your Jev API key in Settings first.</string>
+    <string name="menu_page_verdict">Page verdict</string>
+    <string name="verdict_title">Page verdict</string>
+    <string name="verdict_checking">Asking Jev about this page…</string>
+    <string name="verdict_no_page">Open a page first, then ask for a verdict.</string>
+    <string name="verdict_trustworthy">Trustworthy</string>
+    <string name="verdict_suspicious">Suspicious</string>
+    <string name="verdict_uncertain">Uncertain</string>
+    <string name="verdict_kind_label">Page type</string>
+    <string name="verdict_quality_label">Quality</string>
+
+    <!-- Crash reports -->
+    <string name="crash_title">Aegis closed unexpectedly</string>
+    <string name="crash_message">A crash report was saved on this phone. View it, copy it, or share it — nothing is sent anywhere on its own.</string>
+    <string name="crash_view">View</string>
+    <string name="crash_copy">Copy</string>
+    <string name="crash_share">Share</string>
+    <string name="crash_dismiss">Dismiss</string>
+    <string name="crash_delete">Delete</string>
+    <string name="crash_copied">Crash report copied</string>
+    <string name="crash_deleted">Crash report deleted</string>
+    <string name="settings_crash">Crash reports</string>
+    <string name="settings_crash_desc">View, copy, or share saved crash reports.</string>
+    <string name="crash_reports_none">No crash reports. Good.</string>
+</resources>

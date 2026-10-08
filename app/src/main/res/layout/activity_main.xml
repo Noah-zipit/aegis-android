@@ -59,7 +59,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Home view: shown on new tabs -->
+        <!-- Home view: shown on new tabs (wallpaper behind the scroll content) -->
+        <FrameLayout
+            android:id="@+id/home_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/home_wallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:alpha="0.65"
+            android:src="@drawable/home_wallpaper"
+            android:contentDescription="@string/wallpaper_desc" />
+
         <ScrollView
             android:id="@+id/home_view"
             android:layout_width="match_parent"
@@ -161,6 +175,7 @@
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
         </ScrollView>
+        </FrameLayout>
 
         <!-- Fullscreen video holder -->
         <FrameLayout

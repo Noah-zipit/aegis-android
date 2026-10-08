@@ -42,6 +42,10 @@
             android:name="com.aegis.browser.AboutActivity"
             android:exported="false"
             android:parentActivityName="com.aegis.browser.MainActivity" />
+        <activity
+            android:name="com.aegis.browser.PrivacyActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
 
         <activity
             android:name="com.aegis.browser.ai.AiChatActivity"

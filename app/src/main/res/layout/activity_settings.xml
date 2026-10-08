@@ -102,6 +102,146 @@
             android:layout_marginBottom="16dp"
             android:background="@color/aegis_border" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_wallpaper"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/aegis_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/settings_wallpaper_desc"
+                    android:textSize="13sp"
+                    android:textColor="@color/aegis_text_dim" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_wallpaper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.Aegis" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/aegis_border" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_jev_title"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/aegis_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/settings_jev_desc"
+            android:textSize="13sp"
+            android:textColor="@color/aegis_text_dim" />
+
+        <EditText
+            android:id="@+id/jev_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_address_bar"
+            android:hint="@string/jev_key_hint"
+            android:textColor="@color/aegis_text"
+            android:textColorHint="@color/aegis_text_dim"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/jev_endpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_address_bar"
+            android:hint="@string/jev_endpoint_hint"
+            android:textColor="@color/aegis_text"
+            android:textColorHint="@color/aegis_text_dim"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:inputType="textUri"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/jev_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_address_bar"
+            android:hint="@string/jev_model_hint"
+            android:textColor="@color/aegis_text"
+            android:textColorHint="@color/aegis_text_dim"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:inputType="text"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btn_save_jev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/jev_save"
+            android:textAllCaps="false" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/aegis_border" />
+
+        <Button
+            android:id="@+id/btn_crash_reports"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card"
+            android:text="@string/settings_crash"
+            android:textColor="@color/aegis_text"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/settings_crash_desc"
+            android:textSize="13sp"
+            android:textColor="@color/aegis_text_dim" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/aegis_border" />
+
         <Button
             android:id="@+id/btn_clear_data"
             android:layout_width="match_parent"
