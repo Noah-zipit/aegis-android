@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Aegis Raycast theme. Workers: use ONLY these color names. -->
+    <color name="aegis_bg">#07080A</color>
+    <color name="aegis_surface">#0D0D0D</color>
+    <color name="aegis_surface2">#121212</color>
+    <color name="aegis_border">#242728</color>
+    <color name="aegis_text">#FFFFFF</color>
+    <color name="aegis_text_dim">#9AA0A6</color>
+    <color name="aegis_accent">#FF5757</color>
+    <color name="aegis_accent_dark">#A1131A</color>
+    <color name="ic_launcher_background">#8E1218</color>
+</resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.Aegis"
+        android:allowBackup="true"
+        android:supportsRtl="true">
+
+        <activity
+            android:name="com.aegis.browser.MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.aegis.browser.HistoryActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
+        <activity
+            android:name="com.aegis.browser.BookmarksActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
+        <activity
+            android:name="com.aegis.browser.DownloadsActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
+        <activity
+            android:name="com.aegis.browser.SettingsActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
+        <activity
+            android:name="com.aegis.browser.AboutActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity" />
+
+        <activity
+            android:name="com.aegis.browser.ai.AiChatActivity"
+            android:exported="false"
+            android:parentActivityName="com.aegis.browser.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustResize" />
+
+    </application>
+</manifest>

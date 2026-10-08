@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Aegis" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowBackground">@color/aegis_bg</item>
+        <item name="android:statusBarColor">@color/aegis_bg</item>
+        <item name="android:navigationBarColor">@color/aegis_bg</item>
+        <item name="colorPrimary">@color/aegis_accent</item>
+        <item name="colorOnPrimary">@color/aegis_text</item>
+        <item name="colorSurface">@color/aegis_surface</item>
+        <item name="colorOnSurface">@color/aegis_text</item>
+        <item name="android:textColorPrimary">@color/aegis_text</item>
+        <item name="android:textColorSecondary">@color/aegis_text_dim</item>
+        <item name="android:editTextBackground">@drawable/bg_input</item>
+    </style>
+</resources>
