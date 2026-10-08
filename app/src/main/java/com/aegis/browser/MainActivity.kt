@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var webContainer: FrameLayout
     private lateinit var homeView: ScrollView
+    private lateinit var homeHolder: FrameLayout
     private lateinit var homeWallpaper: ImageView
     private lateinit var homeClock: TextView
     private lateinit var homeDate: TextView
@@ -158,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progress_bar)
         webContainer = findViewById(R.id.web_container)
         homeView = findViewById(R.id.home_view)
+        homeHolder = findViewById(R.id.home_holder)
         homeWallpaper = findViewById(R.id.home_wallpaper)
         homeClock = findViewById(R.id.home_clock)
         homeDate = findViewById(R.id.home_date)
@@ -279,7 +281,7 @@ class MainActivity : AppCompatActivity() {
             if (t !== tab) (t.webView.parent as? ViewGroup)?.removeView(t.webView)
         }
         if (tab.webView.parent == null) webContainer.addView(tab.webView, 0)
-        homeView.visibility = if (tab.url.isEmpty()) View.VISIBLE else View.GONE
+        setHomeVisible(tab.url.isEmpty())
         if (!addressBar.hasFocus()) addressBar.setText(tab.url)
         updateNavButtons()
     }
@@ -288,7 +290,7 @@ class MainActivity : AppCompatActivity() {
         val tab = activeTab() ?: return
         tab.url = ""
         tab.title = getString(R.string.new_tab)
-        homeView.visibility = View.VISIBLE
+        setHomeVisible(true)
         if (!addressBar.hasFocus()) addressBar.setText("")
         updateNavButtons()
     }
@@ -386,7 +388,7 @@ class MainActivity : AppCompatActivity() {
     private fun openInActiveTab(url: String) {
         val tab = activeTab() ?: return
         tab.url = url
-        homeView.visibility = View.GONE
+        setHomeVisible(false)
         addressBar.clearFocus()
         hideKeyboard()
         activeWebView()?.loadUrl(url)
@@ -467,7 +469,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (view == activeWebView()) {
                     progressBar.visibility = View.GONE
-                    homeView.visibility = View.GONE
+                    setHomeVisible(false)
                     updateNavButtons()
                 }
             }
@@ -552,7 +554,7 @@ class MainActivity : AppCompatActivity() {
         topBar.visibility = View.GONE
         bottomToolbar.visibility = View.GONE
         fabAi.visibility = View.GONE
-        homeView.visibility = View.GONE
+        setHomeVisible(false)
         fullscreenHolder.visibility = View.VISIBLE
         fullscreenHolder.addView(
             view,
@@ -572,8 +574,15 @@ class MainActivity : AppCompatActivity() {
         topBar.visibility = View.VISIBLE
         bottomToolbar.visibility = View.VISIBLE
         fabAi.visibility = View.VISIBLE
-        homeView.visibility =
-            if (activeTab()?.url.isNullOrEmpty()) View.VISIBLE else View.GONE
+        setHomeVisible(activeTab()?.url.isNullOrEmpty())
+    }
+
+    /**
+     * Toggles the whole home layer (wallpaper + home content). The wallpaper
+     * must never stay visible over web content, so both are switched together.
+     */
+    private fun setHomeVisible(visible: Boolean) {
+        homeHolder.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     // ------------------------------------------------------------------ downloads
